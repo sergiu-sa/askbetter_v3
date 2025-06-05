@@ -3,34 +3,53 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    font-family: 'Inter', system-ui, sans-serif;
-  }
-  
-  body {
-    @apply bg-gray-50 text-gray-900 antialiased;
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-medium;
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+  }
+
+  html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  body {
+    @apply bg-base-100 text-base-content antialiased;
   }
 }
 
 @layer components {
-  .card {
-    @apply bg-white rounded-xl border border-gray-200 shadow-sm;
+  .glass-effect {
+    @apply backdrop-blur-md bg-white/30 dark:bg-gray-800/30 border border-white/20 dark:border-gray-700/20;
   }
-  
+
+  .card {
+    @apply rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl bg-base-100 dark:bg-gray-800;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-base-100 dark:bg-gray-800;
+  }
+
   .btn {
     @apply px-4 py-2 rounded-lg font-medium transition-colors;
   }
-  
+
   .btn-primary {
-    @apply bg-primary-600 text-white hover:bg-primary-700;
+    @apply bg-primary text-primary-content hover:bg-primary/90;
   }
-  
+
   .btn-secondary {
-    @apply bg-white text-gray-700 border border-gray-300 hover:bg-gray-100;
+    @apply bg-secondary text-secondary-content hover:bg-secondary/90;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-base-200 dark:hover:bg-gray-700;
   }
 
   .mood-card {
@@ -44,4 +63,39 @@
   .mood-icon {
     @apply w-12 h-12 rounded-full flex items-center justify-center mb-2;
   }
+}
+
+/* Custom animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-500;
 }
